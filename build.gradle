@@ -17,13 +17,19 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    springBootVersion = '1.4.0.RELEASE'
+}
+
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile(
+            "org.springframework.boot:spring-boot-starter-test:$springBootVersion",
+    )
 }
 
 checkstyle {
     configFile = file("$project.projectDir/config/checkstyle/checkstyle.xml")
-    configProperties = ['':8]
+    configProperties = ['': 8]
     toolVersion = '6.7'
 }
 

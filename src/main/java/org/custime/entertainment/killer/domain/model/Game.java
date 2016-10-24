@@ -20,6 +20,12 @@ public class Game {
 
     public void finish() {
         if (isFinished.compareAndSet(false, true)) {
+            emitFinishListener();
+        }
+    }
+
+    private void emitFinishListener() {
+        if (finishListener != null) {
             finishListener.accept(this);
         }
     }

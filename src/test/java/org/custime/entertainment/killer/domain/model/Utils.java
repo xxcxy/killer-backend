@@ -19,4 +19,8 @@ public class Utils {
     public static Player getPlayer() {
         return new Player();
     }
+
+    public static Game getGame() {
+        return getRoomWithPlayers().startGame();
+    }
 }

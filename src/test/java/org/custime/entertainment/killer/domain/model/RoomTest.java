@@ -56,10 +56,9 @@ public class RoomTest {
     }
 
     @Test
-    public void testStopGame() {
+    public void testAddPlayerAfterGameStopped() {
         Game game = roomWithPlayers.startGame();
-        assertThat(roomWithPlayers.isGameStarted(), is(true));
         game.finish();
-        assertThat(roomWithPlayers.isGameStarted(), is(false));
+        assertThat(roomWithPlayers.addPlayer(Utils.getPlayer()), is(true));
     }
 }
