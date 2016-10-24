@@ -1,5 +1,6 @@
 package org.custime.entertainment.killer.domain;
 
+import org.custime.entertainment.killer.domain.model.Game;
 import org.custime.entertainment.killer.domain.model.Room;
 import org.custime.entertainment.killer.domain.repository.RoomRepository;
 import org.junit.Test;
@@ -15,6 +16,13 @@ public class RoomTest {
     public void testCreateRoom() {
         Room room = roomRepository.createRoom();
         assertThat(room, notNullValue());
+    }
+
+    @Test
+    public void testStartGame() {
+        Room room = roomRepository.createRoom();
+        Game game = room.startGame();
+        assertThat(game, notNullValue());
     }
 
 }
