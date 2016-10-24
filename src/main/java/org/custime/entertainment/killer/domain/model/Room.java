@@ -13,7 +13,7 @@ public class Room {
     }
 
     public synchronized Game startGame() {
-        game = new Game();
+        game = new Game(players);
         game.listenToFinish(this::listenGameFinish);
         return game;
     }

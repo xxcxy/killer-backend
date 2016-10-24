@@ -1,17 +1,17 @@
 package org.custime.entertainment.killer.domain.model;
 
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
 public class Game {
-    private boolean started;
     private Consumer<Game> finishListener;
+    private final List<Player> players;
+    private final AtomicBoolean isFinished;
 
-    public void start() {
-        started = true;
-    }
-
-    public boolean isStarted() {
-        return started;
+    public Game(final List<Player> players) {
+        this.players = players;
+        this.isFinished = new AtomicBoolean(false);
     }
 
     public void listenToFinish(final Consumer<Game> consumer) {
@@ -19,6 +19,8 @@ public class Game {
     }
 
     public void finish() {
-        finishListener.accept(this);
+        if (isFinished.compareAndSet(false, true)) {
+            finishListener.accept(this);
+        }
     }
 }
