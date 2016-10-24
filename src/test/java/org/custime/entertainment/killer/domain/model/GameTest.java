@@ -1,6 +1,5 @@
-package org.custime.entertainment.killer.domain;
+package org.custime.entertainment.killer.domain.model;
 
-import org.custime.entertainment.killer.domain.model.Game;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
