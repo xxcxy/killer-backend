@@ -10,10 +10,12 @@ import static org.junit.Assert.assertThat;
 public class RoomTest {
 
     private Room room;
+    private Room roomWithPlayers;
 
     @Before
     public void setup() {
         room = Utils.getRoom();
+        roomWithPlayers = Utils.getRoomWithPlayers();
     }
 
     @Test
@@ -24,10 +26,8 @@ public class RoomTest {
 
     @Test
     public void testAddPlayerFailWhenGameStarted() {
-        room.addPlayer(Utils.getPlayer());
-        room.startGame();
-        assertThat(room.addPlayer(Utils.getPlayer()), is(false));
-        assertThat(room.getPlayers().size(), is(1));
+        roomWithPlayers.startGame();
+        assertThat(roomWithPlayers.addPlayer(Utils.getPlayer()), is(false));
     }
 
     @Test
@@ -50,9 +50,16 @@ public class RoomTest {
 
     @Test
     public void testStartGame() {
-        room.addPlayer(Utils.getPlayer());
-        Game game = room.startGame();
+        Game game = roomWithPlayers.startGame();
+        assertThat(roomWithPlayers.isGameStarted(), is(true));
         assertThat(game, notNullValue());
     }
 
+    @Test
+    public void testStopGame() {
+        Game game = roomWithPlayers.startGame();
+        assertThat(roomWithPlayers.isGameStarted(), is(true));
+        game.finish();
+        assertThat(roomWithPlayers.isGameStarted(), is(false));
+    }
 }

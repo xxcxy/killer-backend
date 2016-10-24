@@ -14,6 +14,7 @@ public class Room {
 
     public synchronized Game startGame() {
         game = new Game();
+        game.listenToFinish(this::listenGameFinish);
         return game;
     }
 
@@ -29,7 +30,11 @@ public class Room {
         return !isGameStarted() && players.remove(player);
     }
 
-    private synchronized boolean isGameStarted() {
+    private void listenGameFinish(final Game game) {
+        this.game = null;
+    }
+
+    public boolean isGameStarted() {
         return game != null;
     }
 }

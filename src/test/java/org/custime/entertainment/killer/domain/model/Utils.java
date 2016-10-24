@@ -10,6 +10,12 @@ public class Utils {
         return roomRepository.createRoom();
     }
 
+    public static Room getRoomWithPlayers() {
+        Room room = getRoom();
+        room.addPlayer(getPlayer());
+        return room;
+    }
+
     public static Player getPlayer() {
         return new Player();
     }
