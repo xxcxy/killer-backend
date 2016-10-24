@@ -10,7 +10,7 @@ public class GameTest {
     private Game game = new Game();
 
     @Test
-    public void should_start() {
+    public void testGameStart() {
         assertThat(game.isStarted(), is(false));
         game.start();
         assertThat(game.isStarted(), is(true));

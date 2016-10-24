@@ -2,8 +2,16 @@ group 'org.custime.entertainment'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'application'
+apply plugin: 'checkstyle'
+apply plugin: 'jacoco'
 
-sourceCompatibility = 1.5
+apply from: 'config/scripts/coverage.gradle'
+apply from: 'config/scripts/idea.gradle'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
@@ -12,3 +20,15 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+
+checkstyle {
+    configFile = file("$project.projectDir/config/checkstyle/checkstyle.xml")
+    configProperties = ['':8]
+    toolVersion = '6.7'
+}
+
+jacoco {
+    toolVersion = "0.7.5.201505241946"
+}
+
+check.dependsOn "coverageCheck"
