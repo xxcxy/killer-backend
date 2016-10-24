@@ -23,17 +23,34 @@ public class RoomTest {
     }
 
     @Test
+    public void testAddPlayerFailWhenGameStarted() {
+        room.addPlayer(Utils.getPlayer());
+        room.startGame();
+        assertThat(room.addPlayer(Utils.getPlayer()), is(false));
+        assertThat(room.getPlayers().size(), is(1));
+    }
+
+    @Test
     public void testRemovePlayer() {
         Player player = Utils.getPlayer();
         room.addPlayer(player);
         assertThat(room.getPlayers().size(), is(1));
-        room.removePlayer(player);
+        assertThat(room.removePlayer(player), is(true));
         assertThat(room.getPlayers().size(), is(0));
+    }
 
+    @Test
+    public void testRemovePlayerFailWhenGameStarted() {
+        Player player = Utils.getPlayer();
+        room.addPlayer(player);
+        room.startGame();
+        assertThat(room.removePlayer(player), is(false));
+        assertThat(room.getPlayers().size(), is(1));
     }
 
     @Test
     public void testStartGame() {
+        room.addPlayer(Utils.getPlayer());
         Game game = room.startGame();
         assertThat(game, notNullValue());
     }
