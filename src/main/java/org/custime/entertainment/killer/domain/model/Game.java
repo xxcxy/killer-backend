@@ -1,4 +1,4 @@
-package org.custime.entertainment.killer.domain;
+package org.custime.entertainment.killer.domain.model;
 
 public class Game {
     private boolean started;

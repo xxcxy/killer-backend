@@ -1,5 +1,6 @@
 package org.custime.entertainment.killer.domain;
 
+import org.custime.entertainment.killer.domain.model.Game;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -15,4 +16,5 @@ public class GameTest {
         game.start();
         assertThat(game.isStarted(), is(true));
     }
+
 }
