@@ -21,4 +21,8 @@ public class Room {
     public List<Player> getPlayers() {
         return players;
     }
+
+    public boolean removePlayer(final Player player) {
+        return players.remove(player);
+    }
 }

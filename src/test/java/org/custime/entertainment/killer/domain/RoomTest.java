@@ -28,6 +28,17 @@ public class RoomTest {
     }
 
     @Test
+    public void testRemovePlayer() {
+        Room room = roomRepository.createRoom();
+        Player player = new Player();
+        room.addPlayer(player);
+        assertThat(room.getPlayers().size(), is(1));
+        room.removePlayer(player);
+        assertThat(room.getPlayers().size(), is(0));
+
+    }
+
+    @Test
     public void testStartGame() {
         Room room = roomRepository.createRoom();
         Game game = room.startGame();
