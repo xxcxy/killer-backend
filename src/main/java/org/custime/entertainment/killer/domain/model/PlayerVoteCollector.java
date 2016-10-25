@@ -1,7 +1,9 @@
 package org.custime.entertainment.killer.domain.model;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 public class PlayerVoteCollector {
 
@@ -14,7 +16,16 @@ public class PlayerVoteCollector {
     }
 
     public void collectVote(final Player player, final String playerName) {
-        voteMap.put(player, playerName);
+        if (players.contains(player)) {
+            voteMap.put(player, playerName);
+        }
+    }
+
+    public String vote() {
+        return Collections.max(voteMap.values()
+                        .stream()
+                        .collect(Collectors.groupingBy(String::toString, Collectors.counting())).entrySet(),
+                (e1, e2) -> e1.getValue().intValue() - e2.getValue().intValue()).getKey();
     }
 
     public boolean isFinished() {
