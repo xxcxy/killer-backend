@@ -17,7 +17,7 @@ public class PlayerVoteCollectorTest {
     }
 
     @Test
-    public void testVote() {
+    public void testGetVote() {
         Player player1 = Utils.getPlayer();
         Player player2 = Utils.getPlayer();
         Player player3 = Utils.getPlayer();
@@ -28,7 +28,7 @@ public class PlayerVoteCollectorTest {
         playerVoteCollector.collectVote(player2, "play1");
         playerVoteCollector.collectVote(player2, "play2");
         playerVoteCollector.collectVote(player3, "play1");
-        assertThat(playerVoteCollector.vote(), is("play2"));
+        assertThat(playerVoteCollector.getVote(), is("play2"));
     }
 
     @Test

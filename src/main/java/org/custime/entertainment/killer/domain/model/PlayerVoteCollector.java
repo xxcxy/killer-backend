@@ -21,7 +21,7 @@ public class PlayerVoteCollector {
         }
     }
 
-    public String vote() {
+    public String getVote() {
         return Collections.max(voteMap.values()
                         .stream()
                         .collect(Collectors.groupingBy(String::toString, Collectors.counting())).entrySet(),
