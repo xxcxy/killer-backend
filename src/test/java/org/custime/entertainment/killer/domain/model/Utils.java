@@ -1,5 +1,6 @@
 package org.custime.entertainment.killer.domain.model;
 
+import org.assertj.core.util.Lists;
 import org.custime.entertainment.killer.domain.repository.RoomRepository;
 
 public class Utils {
@@ -22,5 +23,9 @@ public class Utils {
 
     public static Game getGame() {
         return getRoomWithPlayers().startGame();
+    }
+
+    public static Game getGame(final Player player, final PlayerVoteCollector collector) {
+        return new Game(Lists.newArrayList(player), collector);
     }
 }
