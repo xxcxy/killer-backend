@@ -1,6 +1,8 @@
 package org.custime.entertainment.killer.domain.model;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import org.custime.entertainment.killer.domain.value.FinishGameEvent;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,12 +15,12 @@ public class Room {
 
     public Room(final EventBus eventBus) {
         this.eventBus = eventBus;
+        this.eventBus.register(this);
         players = new ArrayList<>();
     }
 
     public synchronized Game startGame() {
         game = new Game(players, eventBus);
-        game.listenToFinish(this::listenGameFinish);
         return game;
     }
 
@@ -34,7 +36,8 @@ public class Room {
         return !isGameStarted() && players.remove(player);
     }
 
-    private void listenGameFinish(final Game game) {
+    @Subscribe
+    private void listenGameFinish(final FinishGameEvent event) {
         this.game = null;
     }
 

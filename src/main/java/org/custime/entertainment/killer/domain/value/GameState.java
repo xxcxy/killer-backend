@@ -1,4 +1,4 @@
-package org.custime.entertainment.killer.domain.model;
+package org.custime.entertainment.killer.domain.value;
 
 public enum GameState {
     STARTED {

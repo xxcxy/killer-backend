@@ -1,15 +1,15 @@
 package org.custime.entertainment.killer.domain.model;
 
 import com.google.common.eventbus.EventBus;
+import org.custime.entertainment.killer.domain.value.FinishGameEvent;
+import org.custime.entertainment.killer.domain.value.GameState;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Consumer;
 
-import static org.custime.entertainment.killer.domain.model.GameState.STARTED;
+import static org.custime.entertainment.killer.domain.value.GameState.STARTED;
 
 public class Game {
-    private Consumer<Game> finishListener;
     private final List<Player> players;
     private final EventBus eventBus;
     private GameState state;
@@ -27,6 +27,7 @@ public class Game {
         this.players = players;
         this.voteCollector = playerVoteCollector;
         this.eventBus = eventBus;
+        this.eventBus.register(this);
         this.isFinished = new AtomicBoolean(false);
         this.isVoting = new AtomicBoolean(false);
         this.state = STARTED;
@@ -53,19 +54,9 @@ public class Game {
         isVoting.set(true);
     }
 
-    public void listenToFinish(final Consumer<Game> consumer) {
-        finishListener = consumer;
-    }
-
     public void finish() {
         if (isFinished.compareAndSet(false, true)) {
-            emitFinishListener();
-        }
-    }
-
-    private void emitFinishListener() {
-        if (finishListener != null) {
-            finishListener.accept(this);
+            eventBus.post(new FinishGameEvent());
         }
     }
 }

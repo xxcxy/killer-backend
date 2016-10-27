@@ -5,7 +5,6 @@ import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -17,19 +16,6 @@ public class GameTest {
     @Before
     public void setup() {
         game = Utils.getGame();
-    }
-
-    @Test
-    public void testListenToGameFinish() {
-        Consumer consumer = mock(Consumer.class);
-        game.listenToFinish(consumer);
-        game.finish();
-        verify(consumer).accept(game);
-    }
-
-    @Test
-    public void testGameFinishWithNullFinishListener() {
-        game.finish();
     }
 
     @Test
