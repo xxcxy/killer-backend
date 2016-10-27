@@ -1,5 +1,7 @@
 package org.custime.entertainment.killer.domain.model;
 
+import com.google.common.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -7,13 +9,15 @@ import java.util.List;
 public class Room {
     private List<Player> players;
     private Game game;
+    private final EventBus eventBus;
 
-    public Room() {
+    public Room(final EventBus eventBus) {
+        this.eventBus = eventBus;
         players = new ArrayList<>();
     }
 
     public synchronized Game startGame() {
-        game = new Game(players);
+        game = new Game(players, eventBus);
         game.listenToFinish(this::listenGameFinish);
         return game;
     }

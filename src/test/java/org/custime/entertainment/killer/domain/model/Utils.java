@@ -1,7 +1,10 @@
 package org.custime.entertainment.killer.domain.model;
 
+import com.google.common.eventbus.EventBus;
 import org.assertj.core.util.Lists;
 import org.custime.entertainment.killer.domain.repository.RoomRepository;
+
+import java.util.List;
 
 public class Utils {
 
@@ -26,6 +29,10 @@ public class Utils {
     }
 
     public static Game getGame(final Player player, final PlayerVoteCollector collector) {
-        return new Game(Lists.newArrayList(player), collector);
+        return new Game(Lists.newArrayList(player), collector, new EventBus());
+    }
+
+    public static PlayerVoteCollector getPlayerVoteCollector(final List<Player> playerList) {
+        return new PlayerVoteCollector(playerList, new EventBus());
     }
 }

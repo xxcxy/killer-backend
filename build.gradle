@@ -19,9 +19,13 @@ repositories {
 
 ext {
     springBootVersion = '1.4.0.RELEASE'
+    guavaVersion = '19.0'
 }
 
 dependencies {
+    compile(
+            "com.google.guava:guava:$guavaVersion",
+    )
     testCompile(
             "org.springframework.boot:spring-boot-starter-test:$springBootVersion",
     )
@@ -34,7 +38,7 @@ checkstyle {
 }
 
 jacoco {
-    toolVersion = "0.7.5.201505241946"
+    toolVersion = '0.7.5.201505241946'
 }
 
-check.dependsOn "coverageCheck"
+check.dependsOn 'coverageCheck'

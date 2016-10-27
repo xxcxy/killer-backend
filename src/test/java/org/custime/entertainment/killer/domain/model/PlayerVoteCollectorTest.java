@@ -11,7 +11,7 @@ public class PlayerVoteCollectorTest {
     @Test
     public void testFinish() {
         Player player = Utils.getPlayer();
-        PlayerVoteCollector playerVoteCollector = new PlayerVoteCollector(Lists.newArrayList(player));
+        PlayerVoteCollector playerVoteCollector = Utils.getPlayerVoteCollector(Lists.newArrayList(player));
         playerVoteCollector.collectVote(player, "playName");
         assertThat(playerVoteCollector.isFinished(), is(true));
     }
@@ -22,7 +22,7 @@ public class PlayerVoteCollectorTest {
         Player player2 = Utils.getPlayer();
         Player player3 = Utils.getPlayer();
         PlayerVoteCollector playerVoteCollector
-                = new PlayerVoteCollector(Lists.newArrayList(player1, player2, player3));
+                = Utils.getPlayerVoteCollector(Lists.newArrayList(player1, player2, player3));
         playerVoteCollector.collectVote(player1, "play1");
         playerVoteCollector.collectVote(player1, "play2");
         playerVoteCollector.collectVote(player2, "play1");
@@ -34,7 +34,7 @@ public class PlayerVoteCollectorTest {
     @Test
     public void testClear() {
         Player player = Utils.getPlayer();
-        PlayerVoteCollector playerVoteCollector = new PlayerVoteCollector(Lists.newArrayList(player));
+        PlayerVoteCollector playerVoteCollector = Utils.getPlayerVoteCollector(Lists.newArrayList(player));
         playerVoteCollector.collectVote(player, "playName");
         assertThat(playerVoteCollector.isFinished(), is(true));
         playerVoteCollector.clear();

@@ -1,5 +1,7 @@
 package org.custime.entertainment.killer.domain.model;
 
+import com.google.common.eventbus.EventBus;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -8,10 +10,12 @@ import java.util.stream.Collectors;
 public class PlayerVoteCollector {
 
     private final ConcurrentHashMap<Player, String> voteMap;
+    private final EventBus eventBus;
     private final List<Player> players;
 
-    public PlayerVoteCollector(final List<Player> players) {
+    public PlayerVoteCollector(final List<Player> players, final EventBus eventBus) {
         this.players = players;
+        this.eventBus = eventBus;
         this.voteMap = new ConcurrentHashMap<>();
     }
 
