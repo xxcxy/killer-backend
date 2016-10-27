@@ -1,12 +1,18 @@
 package org.custime.entertainment.killer.domain.model;
 
-import java.util.function.BiConsumer;
+import com.google.common.eventbus.EventBus;
+import org.custime.entertainment.killer.domain.value.PlayerVoteEvent;
 
 public class Player {
 
-    private BiConsumer<Player, String> voteConsumer;
+    private final EventBus eventBus;
 
-    public void setVoteConsumer(final BiConsumer<Player, String> voteConsumer) {
-        this.voteConsumer = voteConsumer;
+    public Player(final EventBus eventBus) {
+        this.eventBus = eventBus;
     }
+
+    public void vote(final String playerName) {
+        eventBus.post(new PlayerVoteEvent(this, playerName));
+    }
+
 }

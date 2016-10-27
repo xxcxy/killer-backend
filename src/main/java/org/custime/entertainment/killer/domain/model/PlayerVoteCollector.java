@@ -1,6 +1,9 @@
 package org.custime.entertainment.killer.domain.model;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import org.custime.entertainment.killer.domain.value.FinishVoteEvent;
+import org.custime.entertainment.killer.domain.value.PlayerVoteEvent;
 
 import java.util.Collections;
 import java.util.List;
@@ -17,11 +20,16 @@ public class PlayerVoteCollector {
         this.players = players;
         this.eventBus = eventBus;
         this.voteMap = new ConcurrentHashMap<>();
+        this.eventBus.register(this);
     }
 
-    public void collectVote(final Player player, final String playerName) {
-        if (players.contains(player)) {
-            voteMap.put(player, playerName);
+    @Subscribe
+    public void collectVote(final PlayerVoteEvent event) {
+        if (players.contains(event.getPlayer())) {
+            voteMap.put(event.getPlayer(), event.getVotePlayerName());
+        }
+        if (isFinished()) {
+            eventBus.post(new FinishVoteEvent(getVote()));
         }
     }
 

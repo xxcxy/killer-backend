@@ -21,18 +21,30 @@ public class Utils {
     }
 
     public static Player getPlayer() {
-        return new Player();
+        return getPlayer(new EventBus());
+    }
+
+    public static Player getPlayer(final EventBus eventBus) {
+        return new Player(eventBus);
     }
 
     public static Game getGame() {
         return getRoomWithPlayers().startGame();
     }
 
-    public static Game getGame(final Player player, final PlayerVoteCollector collector) {
-        return new Game(Lists.newArrayList(player), collector, new EventBus());
+    public static Game getGame(final Player player,
+                               final PlayerVoteCollector collector,
+                               final RoundProcessor roundProcessor,
+                               final EventBus eventBus) {
+        return new Game(Lists.newArrayList(player), collector, roundProcessor, eventBus);
     }
 
     public static PlayerVoteCollector getPlayerVoteCollector(final List<Player> playerList) {
-        return new PlayerVoteCollector(playerList, new EventBus());
+        return getPlayerVoteCollector(playerList, new EventBus());
+    }
+
+    public static PlayerVoteCollector getPlayerVoteCollector(final List<Player> playerList,
+                                                             final EventBus eventBus) {
+        return new PlayerVoteCollector(playerList, eventBus);
     }
 }
