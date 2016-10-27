@@ -1,7 +1,7 @@
 package org.custime.entertainment.killer.domain.model;
 
+import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
-import org.assertj.core.util.Lists;
 import org.custime.entertainment.killer.domain.repository.RoomRepository;
 
 import java.util.List;
@@ -36,7 +36,14 @@ public class Utils {
                                final PlayerVoteCollector collector,
                                final RoundProcessor roundProcessor,
                                final EventBus eventBus) {
-        return new Game(Lists.newArrayList(player), collector, roundProcessor, eventBus);
+        return getGame(Lists.newArrayList(player), collector, roundProcessor, eventBus);
+    }
+
+    public static Game getGame(final List<Player> players,
+                               final PlayerVoteCollector collector,
+                               final RoundProcessor roundProcessor,
+                               final EventBus eventBus) {
+        return new Game(players, collector, roundProcessor, eventBus);
     }
 
     public static PlayerVoteCollector getPlayerVoteCollector(final List<Player> playerList) {

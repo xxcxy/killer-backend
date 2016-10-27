@@ -16,7 +16,6 @@ public class Game {
     private final EventBus eventBus;
     private GameState state;
     private final AtomicBoolean isFinished;
-    private final AtomicBoolean isVoting;
     private final PlayerVoteCollector voteCollector;
     private final RoundProcessor roundProcessor;
 
@@ -37,23 +36,15 @@ public class Game {
         this.roundProcessor = roundProcessor;
         this.eventBus.register(this);
         this.isFinished = new AtomicBoolean(false);
-        this.isVoting = new AtomicBoolean(false);
         this.state = STARTED;
-        doAndNextStep(null);
+        finishVote(new FinishVoteEvent(null));
     }
 
     @Subscribe
     private void finishVote(final FinishVoteEvent event) {
-        if (isVoting.compareAndSet(true, false)) {
-            doAndNextStep(event.getVotePlayerName());
-        }
-    }
-
-    private void doAndNextStep(final String playerName) {
-        voteCollector.clear();
-        roundProcessor.process(state, playerName);
+        roundProcessor.process(state, event.getVotePlayerName());
         state = state.next();
-        isVoting.set(true);
+        voteCollector.startVote();
     }
 
     public void finish() {
