@@ -22,7 +22,7 @@ public class Game {
     public Game(final List<Player> players, final EventBus eventBus) {
         this(players,
                 new PlayerVoteCollector(players, eventBus),
-                new RoundProcessor(),
+                new RoundProcessor(eventBus),
                 eventBus);
     }
 
