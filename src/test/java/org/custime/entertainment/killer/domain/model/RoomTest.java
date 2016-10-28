@@ -1,5 +1,7 @@
 package org.custime.entertainment.killer.domain.model;
 
+import com.google.common.eventbus.EventBus;
+import org.custime.entertainment.killer.domain.value.FinishGameEvent;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -57,8 +59,9 @@ public class RoomTest {
 
     @Test
     public void testAddPlayerAfterGameStopped() {
-        Game game = roomWithPlayers.startGame();
-        game.finish();
+        EventBus eventBus = new EventBus();
+        Utils.getRoomWithPlayers(eventBus).startGame();
+        eventBus.post(new FinishGameEvent());
         assertThat(roomWithPlayers.addPlayer(Utils.getPlayer()), is(true));
     }
 }

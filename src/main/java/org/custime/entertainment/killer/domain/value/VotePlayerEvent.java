@@ -7,4 +7,7 @@ public class VotePlayerEvent {
         this.voteName = voteName;
     }
 
+    public String getVoteName() {
+        return voteName;
+    }
 }

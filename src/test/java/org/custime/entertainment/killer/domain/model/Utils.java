@@ -3,8 +3,11 @@ package org.custime.entertainment.killer.domain.model;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
 import org.custime.entertainment.killer.domain.repository.RoomRepository;
+import org.custime.entertainment.killer.domain.service.PlayerService;
 
 import java.util.List;
+
+import static org.mockito.Mockito.mock;
 
 public class Utils {
 
@@ -20,12 +23,32 @@ public class Utils {
         return room;
     }
 
+    public static Room getRoomWithPlayers(final EventBus eventBus) {
+        Room room = new Room(eventBus);
+        room.addPlayer(getPlayer());
+        return room;
+    }
+
     public static Player getPlayer() {
         return getPlayer(new EventBus());
     }
 
     public static Player getPlayer(final EventBus eventBus) {
-        return new Player(eventBus);
+        return getPlayer(eventBus, mock(PlayerService.class));
+    }
+
+    public static Player getPlayer(final EventBus eventBus, final PlayerService playerService) {
+        return getPlayer(eventBus, playerService, "playerName");
+    }
+
+    public static Player getPlayer(final EventBus eventBus, final String playerName) {
+        return getPlayer(eventBus, mock(PlayerService.class), playerName);
+    }
+
+    public static Player getPlayer(final EventBus eventBus,
+                                   final PlayerService playerService,
+                                   final String playerName) {
+        return new Player(eventBus, playerService, playerName);
     }
 
     public static Game getGame() {
