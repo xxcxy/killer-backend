@@ -21,11 +21,18 @@ public class Room {
 
     public synchronized Game startGame() {
         game = new Game(players, eventBus);
+        eventBus.register(game);
         return game;
     }
 
     public synchronized boolean addPlayer(final Player player) {
-        return !isGameStarted() && players.add(player);
+        return !isGameStarted() && registerPlayer(player) && players.add(player);
+    }
+
+    private boolean registerPlayer(final Player player) {
+        eventBus.register(player);
+        player.setEventBus(eventBus);
+        return true;
     }
 
     public List<Player> getPlayers() {
@@ -33,11 +40,18 @@ public class Room {
     }
 
     public synchronized boolean removePlayer(final Player player) {
-        return !isGameStarted() && players.remove(player);
+        return !isGameStarted() && unregisterPlayer(player) && players.remove(player);
+    }
+
+    private boolean unregisterPlayer(final Player player) {
+        eventBus.unregister(player);
+        player.setEventBus(null);
+        return true;
     }
 
     @Subscribe
     private void listenGameFinish(final FinishGameEvent event) {
+        eventBus.unregister(this.game);
         this.game = null;
     }
 

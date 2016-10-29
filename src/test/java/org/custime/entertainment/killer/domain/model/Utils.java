@@ -48,7 +48,10 @@ public class Utils {
     public static Player getPlayer(final EventBus eventBus,
                                    final PlayerService playerService,
                                    final String playerName) {
-        return new Player(eventBus, playerService, playerName);
+        Player player = new Player(playerService, playerName);
+        eventBus.register(player);
+        player.setEventBus(eventBus);
+        return player;
     }
 
     public static Game getGame() {
@@ -66,7 +69,9 @@ public class Utils {
                                final PlayerVoteCollector collector,
                                final RoundProcessor roundProcessor,
                                final EventBus eventBus) {
-        return new Game(players, collector, roundProcessor, eventBus);
+        Game game = new Game(players, collector, roundProcessor, eventBus);
+        eventBus.register(game);
+        return game;
     }
 
     public static PlayerVoteCollector getPlayerVoteCollector(final List<Player> playerList) {

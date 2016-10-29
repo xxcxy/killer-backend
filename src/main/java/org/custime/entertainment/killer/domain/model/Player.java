@@ -11,15 +11,17 @@ public class Player {
 
     private final String name;
     private boolean death;
-    private final EventBus eventBus;
+    private EventBus eventBus;
     private final PlayerService playerService;
 
-    public Player(final EventBus eventBus, final PlayerService playerService, final String name) {
-        this.eventBus = eventBus;
+    public Player(final PlayerService playerService, final String name) {
         this.playerService = playerService;
         this.name = name;
         this.death = false;
-        this.eventBus.register(this);
+    }
+
+    public void setEventBus(final EventBus eventBus) {
+        this.eventBus = eventBus;
     }
 
     @Subscribe
@@ -33,7 +35,9 @@ public class Player {
     }
 
     public void vote(final String playerName) {
-        eventBus.post(new PlayerVoteEvent(this, playerName));
+        if (eventBus != null) {
+            eventBus.post(new PlayerVoteEvent(this, playerName));
+        }
     }
 
     public String getName() {

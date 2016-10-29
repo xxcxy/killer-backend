@@ -40,7 +40,6 @@ public class Game {
         this.voteCollector = playerVoteCollector;
         this.eventBus = eventBus;
         this.roundProcessor = roundProcessor;
-        this.eventBus.register(this);
         this.isFinished = new AtomicBoolean(false);
         this.state = STARTED;
         finishVote(new FinishVoteEvent(null));
