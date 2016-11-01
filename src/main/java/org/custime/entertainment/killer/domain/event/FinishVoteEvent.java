@@ -1,4 +1,4 @@
-package org.custime.entertainment.killer.domain.value;
+package org.custime.entertainment.killer.domain.event;
 
 public class FinishVoteEvent {
 

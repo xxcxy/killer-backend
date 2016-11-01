@@ -2,11 +2,11 @@ package org.custime.entertainment.killer.domain.model;
 
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
-import org.custime.entertainment.killer.domain.value.ChangeGameStateEvent;
-import org.custime.entertainment.killer.domain.value.FinishGameEvent;
-import org.custime.entertainment.killer.domain.value.FinishVoteEvent;
-import org.custime.entertainment.killer.domain.value.KillPlayerEvent;
-import org.custime.entertainment.killer.domain.value.VotePlayerEvent;
+import org.custime.entertainment.killer.domain.event.ChangeGameStateEvent;
+import org.custime.entertainment.killer.domain.event.FinishGameEvent;
+import org.custime.entertainment.killer.domain.event.FinishVoteEvent;
+import org.custime.entertainment.killer.domain.event.KillPlayerEvent;
+import org.custime.entertainment.killer.domain.event.VotePlayerEvent;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 

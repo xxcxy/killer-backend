@@ -3,10 +3,10 @@ package org.custime.entertainment.killer.domain.model;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import org.custime.entertainment.killer.domain.service.PlayerService;
-import org.custime.entertainment.killer.domain.value.FinishGameEvent;
-import org.custime.entertainment.killer.domain.value.PlayerVoteEvent;
+import org.custime.entertainment.killer.domain.event.FinishGameEvent;
+import org.custime.entertainment.killer.domain.event.PlayerVoteEvent;
 import org.custime.entertainment.killer.domain.value.Role;
-import org.custime.entertainment.killer.domain.value.UpdatePlayerStateEvent;
+import org.custime.entertainment.killer.domain.event.UpdatePlayerStateEvent;
 
 public class Player {
 

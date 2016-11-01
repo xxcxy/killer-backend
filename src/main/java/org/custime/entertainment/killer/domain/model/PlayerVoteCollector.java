@@ -2,8 +2,8 @@ package org.custime.entertainment.killer.domain.model;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import org.custime.entertainment.killer.domain.value.FinishVoteEvent;
-import org.custime.entertainment.killer.domain.value.PlayerVoteEvent;
+import org.custime.entertainment.killer.domain.event.FinishVoteEvent;
+import org.custime.entertainment.killer.domain.event.PlayerVoteEvent;
 
 import java.util.Collections;
 import java.util.List;

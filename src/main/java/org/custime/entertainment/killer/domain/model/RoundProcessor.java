@@ -2,10 +2,10 @@ package org.custime.entertainment.killer.domain.model;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.eventbus.EventBus;
-import org.custime.entertainment.killer.domain.value.AnswerProphetEvent;
+import org.custime.entertainment.killer.domain.event.AnswerProphetEvent;
 import org.custime.entertainment.killer.domain.value.GameState;
-import org.custime.entertainment.killer.domain.value.KillPlayerEvent;
-import org.custime.entertainment.killer.domain.value.VotePlayerEvent;
+import org.custime.entertainment.killer.domain.event.KillPlayerEvent;
+import org.custime.entertainment.killer.domain.event.VotePlayerEvent;
 
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;

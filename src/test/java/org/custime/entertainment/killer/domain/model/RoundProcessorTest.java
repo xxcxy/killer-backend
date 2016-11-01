@@ -2,7 +2,7 @@ package org.custime.entertainment.killer.domain.model;
 
 import com.google.common.eventbus.EventBus;
 import org.custime.entertainment.killer.domain.value.GameState;
-import org.custime.entertainment.killer.domain.value.KillPlayerEvent;
+import org.custime.entertainment.killer.domain.event.KillPlayerEvent;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 

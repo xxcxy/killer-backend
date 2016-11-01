@@ -2,7 +2,7 @@ package org.custime.entertainment.killer.domain.model;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.eventbus.EventBus;
-import org.custime.entertainment.killer.domain.value.FinishGameEvent;
+import org.custime.entertainment.killer.domain.event.FinishGameEvent;
 import org.junit.Before;
 import org.junit.Test;
 
