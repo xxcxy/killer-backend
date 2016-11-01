@@ -2,6 +2,16 @@
 
 这是一个``狼人杀``游戏的后端服务，前端应用使用 ``websocket`` 方式与后端服务交互。
 
+## Checking out and Building
+-----
+
+```
+git clone git@github.com:xxcxy/killer-backend.git
+cd killer-backend
+./gradlew idea
+
+```
+
 ## 后端目前提供的服务
 
 * 创建游戏房间

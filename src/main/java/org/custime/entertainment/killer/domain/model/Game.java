@@ -3,6 +3,7 @@ package org.custime.entertainment.killer.domain.model;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import org.custime.entertainment.killer.domain.value.ChangeGameStateEvent;
 import org.custime.entertainment.killer.domain.value.FinishGameEvent;
 import org.custime.entertainment.killer.domain.value.FinishVoteEvent;
 import org.custime.entertainment.killer.domain.value.GameState;
@@ -47,6 +48,7 @@ public class Game {
 
     @Subscribe
     private void finishVote(final FinishVoteEvent event) {
+        eventBus.post(new ChangeGameStateEvent(state));
         roundProcessor.process(state, event.getVotePlayerName());
         state = state.next();
         voteCollector.startVote();

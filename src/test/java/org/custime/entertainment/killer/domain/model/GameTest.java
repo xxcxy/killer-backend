@@ -2,14 +2,21 @@ package org.custime.entertainment.killer.domain.model;
 
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
+import org.custime.entertainment.killer.domain.value.ChangeGameStateEvent;
+import org.custime.entertainment.killer.domain.value.FinishVoteEvent;
 import org.custime.entertainment.killer.domain.value.KillPlayerEvent;
 import org.custime.entertainment.killer.domain.value.VotePlayerEvent;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 
+import static org.hamcrest.CoreMatchers.hasItems;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.isA;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -24,6 +31,17 @@ public class GameTest {
         Utils.getGame(player, collector, roundProcessor, eventBus);
         player.vote("playerName");
         verify(roundProcessor, times(2)).process(any(), any());
+    }
+
+    @Test
+    public void testGameStateChanged() {
+        EventBus eventBus = spy(new EventBus());
+        ArgumentCaptor<ChangeGameStateEvent> argumentCaptor = ArgumentCaptor.forClass(ChangeGameStateEvent.class);
+        Utils.getGame(mock(Player.class), mock(PlayerVoteCollector.class), mock(RoundProcessor.class), eventBus);
+        eventBus.post(new FinishVoteEvent(null));
+        verify(eventBus, atLeastOnce()).post(argumentCaptor.capture());
+        assertThat(argumentCaptor.getAllValues(),
+                hasItems(isA(ChangeGameStateEvent.class)));
     }
 
     @Test
