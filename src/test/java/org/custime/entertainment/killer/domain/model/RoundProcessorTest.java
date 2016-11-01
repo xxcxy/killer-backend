@@ -27,7 +27,7 @@ public class RoundProcessorTest {
     public void testProphetAnswer() {
         EventBus eventBus = mock(EventBus.class);
         RoundProcessor roundProcessor = new RoundProcessor(eventBus);
-        roundProcessor.process(GameState.PROPHET_ANSWER_TIME, "");
+        roundProcessor.process(GameState.SEER_ANSWER_TIME, "");
         verify(eventBus).post(any());
     }
 

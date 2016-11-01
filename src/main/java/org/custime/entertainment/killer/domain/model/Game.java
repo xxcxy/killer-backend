@@ -17,6 +17,8 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 import static org.custime.entertainment.killer.domain.value.GameState.STARTED;
+import static org.custime.entertainment.killer.domain.value.Role.VILLAGER;
+import static org.custime.entertainment.killer.domain.value.Role.WEREWOLF;
 
 public class Game {
     private final List<Player> players;
@@ -66,21 +68,33 @@ public class Game {
 
     private void updatePlayerState(final Collection<String> playerNames) {
         players.stream().filter(player -> playerNames.contains(player.getName())).forEach(player -> player.die());
-        if (!maybeFinish()) {
-            eventBus.post(new UpdatePlayerStateEvent(players.stream()
-                    .collect(Collectors.toMap(player -> player.getName(), player -> player.isDeath()))));
-        }
+        eventBus.post(new UpdatePlayerStateEvent(players.stream()
+                .collect(Collectors.toMap(player -> player.getName(), player -> player.isDeath()))));
+        maybeFinish();
     }
 
-    private boolean maybeFinish() {
+    private void maybeFinish() {
         if (checkFinish() && isFinished.compareAndSet(false, true)) {
             eventBus.post(new FinishGameEvent());
-            return true;
         }
-        return false;
     }
 
     private boolean checkFinish() {
-        return players.stream().allMatch(player -> player.isDeath());
+        return allWerewolvesDie() || allOrdinaryVillagersDie() || allSpecialVillagersDie();
+    }
+
+    private boolean allSpecialVillagersDie() {
+        return players.stream().filter(player -> player.getRole() != VILLAGER && player.getRole() != WEREWOLF)
+                .allMatch(player -> player.isDeath());
+    }
+
+    private boolean allOrdinaryVillagersDie() {
+        return players.stream().filter(player -> player.getRole() == VILLAGER)
+                .allMatch(player -> player.isDeath());
+    }
+
+    private boolean allWerewolvesDie() {
+        return players.stream().filter(player -> player.getRole() == WEREWOLF)
+                .allMatch(player -> player.isDeath());
     }
 }

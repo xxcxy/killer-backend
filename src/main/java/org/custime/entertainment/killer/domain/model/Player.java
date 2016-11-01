@@ -5,6 +5,7 @@ import com.google.common.eventbus.Subscribe;
 import org.custime.entertainment.killer.domain.service.PlayerService;
 import org.custime.entertainment.killer.domain.value.FinishGameEvent;
 import org.custime.entertainment.killer.domain.value.PlayerVoteEvent;
+import org.custime.entertainment.killer.domain.value.Role;
 import org.custime.entertainment.killer.domain.value.UpdatePlayerStateEvent;
 
 public class Player {
@@ -12,6 +13,7 @@ public class Player {
     private final String name;
     private boolean death;
     private EventBus eventBus;
+    private Role role;
     private final PlayerService playerService;
 
     public Player(final PlayerService playerService, final String name) {
@@ -20,7 +22,7 @@ public class Player {
         this.death = false;
     }
 
-    public void setEventBus(final EventBus eventBus) {
+    void setEventBus(final EventBus eventBus) {
         this.eventBus = eventBus;
     }
 
@@ -46,6 +48,14 @@ public class Player {
 
     public void die() {
         death = true;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    void setRole(final Role role) {
+        this.role = role;
     }
 
     public boolean isDeath() {

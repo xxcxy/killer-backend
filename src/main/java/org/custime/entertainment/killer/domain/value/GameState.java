@@ -19,13 +19,13 @@ public enum GameState {
         }
     }, WITCH_POISON_TIME {
         public GameState next() {
-            return PROPHET_ASK_TIME;
+            return SEER_ASK_TIME;
         }
-    }, PROPHET_ASK_TIME {
+    }, SEER_ASK_TIME {
         public GameState next() {
-            return PROPHET_ANSWER_TIME;
+            return SEER_ANSWER_TIME;
         }
-    }, PROPHET_ANSWER_TIME {
+    }, SEER_ANSWER_TIME {
         public GameState next() {
             return DAY;
         }

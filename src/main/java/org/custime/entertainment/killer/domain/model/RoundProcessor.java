@@ -13,7 +13,7 @@ import java.util.function.Consumer;
 
 import static org.custime.entertainment.killer.domain.value.GameState.DAY;
 import static org.custime.entertainment.killer.domain.value.GameState.KILLER_TIME;
-import static org.custime.entertainment.killer.domain.value.GameState.PROPHET_ANSWER_TIME;
+import static org.custime.entertainment.killer.domain.value.GameState.SEER_ANSWER_TIME;
 import static org.custime.entertainment.killer.domain.value.GameState.VOTE;
 import static org.custime.entertainment.killer.domain.value.GameState.WITCH_POISON_TIME;
 import static org.custime.entertainment.killer.domain.value.GameState.WITCH_SAVE_TIME;
@@ -35,7 +35,7 @@ public class RoundProcessor {
                 .put(KILLER_TIME, playerName -> killed.set(playerName))
                 .put(WITCH_SAVE_TIME, playerName -> saved.set(playerName))
                 .put(WITCH_POISON_TIME, playerName -> poisoned.set(playerName))
-                .put(PROPHET_ANSWER_TIME, playerName -> eventBus.post(new AnswerProphetEvent(true)))
+                .put(SEER_ANSWER_TIME, playerName -> eventBus.post(new AnswerProphetEvent(true)))
                 .put(DAY, this::notifyKilledPlayer)
                 .put(VOTE, playerName -> eventBus.post(new VotePlayerEvent(playerName)))
                 .build();
