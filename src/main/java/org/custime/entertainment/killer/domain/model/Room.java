@@ -3,10 +3,13 @@ package org.custime.entertainment.killer.domain.model;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import org.custime.entertainment.killer.domain.value.FinishGameEvent;
+import org.custime.entertainment.killer.domain.value.Role;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.IntStream;
 
 public class Room {
     private List<Player> players;
@@ -19,10 +22,29 @@ public class Room {
         players = new ArrayList<>();
     }
 
-    public synchronized Game startGame() {
+    public synchronized boolean startGame(final Map<Role, Integer> roleCount) {
+        if (!allocate(players, roleCount)) {
+            return false;
+        }
         game = new Game(players, eventBus);
         eventBus.register(game);
-        return game;
+        return true;
+    }
+
+    private boolean allocate(final List<Player> playerList, final Map<Role, Integer> roles) {
+        final List<Role> roleList = generateRole(roles);
+        if (playerList.size() != roleList.size()) {
+            return false;
+        }
+        IntStream.range(0, playerList.size()).forEach(index -> playerList.get(index).setRole(roleList.get(index)));
+        return true;
+    }
+
+    private List<Role> generateRole(final Map<Role, Integer> roles) {
+        List<Role> result = new ArrayList<>();
+        roles.forEach((role, i) -> IntStream.range(0, i).forEach(j -> result.add(role)));
+        Collections.shuffle(result);
+        return result;
     }
 
     public synchronized boolean addPlayer(final Player player) {

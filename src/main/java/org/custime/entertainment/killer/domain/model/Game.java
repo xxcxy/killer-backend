@@ -35,10 +35,10 @@ public class Game {
                 eventBus);
     }
 
-    protected Game(final List<Player> players,
-                   final PlayerVoteCollector playerVoteCollector,
-                   final RoundProcessor roundProcessor,
-                   final EventBus eventBus) {
+    Game(final List<Player> players,
+         final PlayerVoteCollector playerVoteCollector,
+         final RoundProcessor roundProcessor,
+         final EventBus eventBus) {
         this.players = players;
         this.voteCollector = playerVoteCollector;
         this.eventBus = eventBus;

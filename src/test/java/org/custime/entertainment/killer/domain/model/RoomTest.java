@@ -1,12 +1,13 @@
 package org.custime.entertainment.killer.domain.model;
 
+import com.google.common.collect.ImmutableMap;
 import com.google.common.eventbus.EventBus;
 import org.custime.entertainment.killer.domain.value.FinishGameEvent;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.custime.entertainment.killer.domain.value.Role.VILLAGER;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 public class RoomTest {
@@ -28,7 +29,7 @@ public class RoomTest {
 
     @Test
     public void testAddPlayerFailWhenGameStarted() {
-        roomWithPlayers.startGame();
+        roomWithPlayers.startGame(ImmutableMap.of(VILLAGER, 1));
         assertThat(roomWithPlayers.addPlayer(Utils.getPlayer()), is(false));
     }
 
@@ -45,22 +46,27 @@ public class RoomTest {
     public void testRemovePlayerFailWhenGameStarted() {
         Player player = Utils.getPlayer();
         room.addPlayer(player);
-        room.startGame();
+        room.startGame(ImmutableMap.of(VILLAGER, 1));
         assertThat(room.removePlayer(player), is(false));
         assertThat(room.getPlayers().size(), is(1));
     }
 
     @Test
     public void testStartGame() {
-        Game game = roomWithPlayers.startGame();
+        assertThat(roomWithPlayers.startGame(ImmutableMap.of(VILLAGER, 1)), is(true));
         assertThat(roomWithPlayers.isGameStarted(), is(true));
-        assertThat(game, notNullValue());
+    }
+
+    @Test
+    public void testStartFailWhenRoleCountDiffPlayerCount() {
+        assertThat(roomWithPlayers.startGame(ImmutableMap.of(VILLAGER, 2)), is(false));
+        assertThat(roomWithPlayers.isGameStarted(), is(false));
     }
 
     @Test
     public void testAddPlayerAfterGameStopped() {
         EventBus eventBus = new EventBus();
-        Utils.getRoomWithPlayers(eventBus).startGame();
+        Utils.getRoomWithPlayers(eventBus).startGame(ImmutableMap.of(VILLAGER, 1));
         eventBus.post(new FinishGameEvent());
         assertThat(roomWithPlayers.addPlayer(Utils.getPlayer()), is(true));
     }

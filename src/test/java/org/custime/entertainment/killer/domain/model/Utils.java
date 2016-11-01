@@ -54,10 +54,6 @@ public class Utils {
         return player;
     }
 
-    public static Game getGame() {
-        return getRoomWithPlayers().startGame();
-    }
-
     public static Game getGame(final Player player,
                                final PlayerVoteCollector collector,
                                final RoundProcessor roundProcessor,
