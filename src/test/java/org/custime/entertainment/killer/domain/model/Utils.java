@@ -11,7 +11,7 @@ import static org.mockito.Mockito.mock;
 
 public class Utils {
 
-    private static RoomRepository roomRepository = new RoomRepository();
+    private static RoomRepository roomRepository = RoomRepository.getInstance();
 
     public static Room getRoom() {
         return roomRepository.createRoom();
