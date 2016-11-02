@@ -48,7 +48,8 @@ public class Utils {
     public static Player getPlayer(final EventBus eventBus,
                                    final PlayerService playerService,
                                    final String playerName) {
-        Player player = new Player(playerService, playerName);
+        Player player = new Player(playerService);
+        player.setName(playerName);
         eventBus.register(player);
         player.setEventBus(eventBus);
         return player;

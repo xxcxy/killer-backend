@@ -2,23 +2,22 @@ package org.custime.entertainment.killer.domain.model;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import org.custime.entertainment.killer.domain.service.PlayerService;
 import org.custime.entertainment.killer.domain.event.FinishGameEvent;
 import org.custime.entertainment.killer.domain.event.PlayerVoteEvent;
-import org.custime.entertainment.killer.domain.value.Role;
 import org.custime.entertainment.killer.domain.event.UpdatePlayerStateEvent;
+import org.custime.entertainment.killer.domain.service.PlayerService;
+import org.custime.entertainment.killer.domain.value.Role;
 
 public class Player {
 
-    private final String name;
+    private String name;
     private boolean death;
     private EventBus eventBus;
     private Role role;
     private final PlayerService playerService;
 
-    public Player(final PlayerService playerService, final String name) {
+    public Player(final PlayerService playerService) {
         this.playerService = playerService;
-        this.name = name;
         this.death = false;
     }
 
@@ -44,6 +43,10 @@ public class Player {
 
     public String getName() {
         return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
     }
 
     public void die() {
