@@ -2,7 +2,7 @@ package org.custime.entertainment.killer.domain.model;
 
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.EventBus;
-import org.custime.entertainment.killer.domain.repository.RoomRepository;
+import org.custime.entertainment.killer.domain.factory.RoomFactory;
 import org.custime.entertainment.killer.domain.service.PlayerService;
 
 import java.util.List;
@@ -11,10 +11,10 @@ import static org.mockito.Mockito.mock;
 
 public class Utils {
 
-    private static RoomRepository roomRepository = RoomRepository.getInstance();
+    private static RoomFactory roomFactory = new RoomFactory();
 
     public static Room getRoom() {
-        return roomRepository.createRoom();
+        return roomFactory.createRoom();
     }
 
     public static Room getRoomWithPlayers() {
@@ -69,10 +69,6 @@ public class Utils {
         Game game = new Game(players, collector, roundProcessor, eventBus);
         eventBus.register(game);
         return game;
-    }
-
-    public static PlayerVoteCollector getPlayerVoteCollector(final List<Player> playerList) {
-        return getPlayerVoteCollector(playerList, new EventBus());
     }
 
     public static PlayerVoteCollector getPlayerVoteCollector(final List<Player> playerList,
