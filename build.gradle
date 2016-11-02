@@ -25,6 +25,7 @@ ext {
 dependencies {
     compile(
             "com.google.guava:guava:$guavaVersion",
+            "org.springframework.boot:spring-boot-starter-websocket:$springBootVersion",
     )
     testCompile(
             "org.springframework.boot:spring-boot-starter-test:$springBootVersion",
@@ -39,6 +40,12 @@ checkstyle {
 
 jacoco {
     toolVersion = '0.7.5.201505241946'
+}
+
+coverage {
+    excludeClasses = [
+            "org.custime.entertainment.killer.Application"
+    ]
 }
 
 check.dependsOn 'coverageCheck'
