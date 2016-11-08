@@ -116,7 +116,27 @@ public class MessageHandlerTest {
     @Test
     public void testLeaveRoom() {
         playerRepository.save("sessionId", mock(Player.class));
+        Room room = mock(Room.class);
+        roomRepository.save("roomName", room);
         messageHandler.handle(session, getMessage("leaveRoom", "roomName"));
+        verify(room).removePlayer(any());
+    }
+
+    @Test
+    public void testLeaveNotExistedRoom() throws IOException {
+        playerRepository.save("sessionId", mock(Player.class));
+        messageHandler.handle(session, getMessage("leaveRoom", "roomName"));
+        verify(session).sendMessage(any());
+    }
+
+    @Test
+    public void testLeaveStartedRoom() throws IOException {
+        playerRepository.save("sessionId", mock(Player.class));
+        Room room = mock(Room.class);
+        when(room.removePlayer(any())).thenReturn(false);
+        roomRepository.save("roomName", room);
+        messageHandler.handle(session, getMessage("leaveRoom", "roomName"));
+        verify(session).sendMessage(any());
     }
 
     @Test

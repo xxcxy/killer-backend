@@ -77,7 +77,8 @@ public class MessageHandler {
     }
 
     private boolean leaveRoom(final Player player, final String roomName) {
-        return true;
+        Optional<Room> roomOptional = roomRepository.getOne(roomName);
+        return roomOptional.isPresent() && roomOptional.get().removePlayer(player);
     }
 
     private boolean startGame(final Player player, final String roomName) {
