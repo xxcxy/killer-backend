@@ -25,7 +25,7 @@ public class Utils {
 
     public static Room getRoomWithPlayers(final EventBus eventBus) {
         Room room = new Room(eventBus);
-        room.addPlayer(getPlayer());
+        room.addPlayer(getPlayer(eventBus));
         return room;
     }
 

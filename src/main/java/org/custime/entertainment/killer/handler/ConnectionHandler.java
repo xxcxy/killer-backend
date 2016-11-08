@@ -20,15 +20,17 @@ public class ConnectionHandler extends TextWebSocketHandler {
     private final MessageHandler messageHandler;
 
     @Inject
-    public ConnectionHandler(final MessageHandler messageHandler) {
-        this.playerFactory = new PlayerFactory();
-        this.playerRepository = PlayerRepository.getInstance();
+    public ConnectionHandler(final MessageHandler messageHandler,
+                             final PlayerFactory playerFactory,
+                             final PlayerRepository playerRepository) {
+        this.playerFactory = playerFactory;
+        this.playerRepository = playerRepository;
         this.messageHandler = messageHandler;
     }
 
     @Override
     public void handleTextMessage(final WebSocketSession session, final TextMessage message) {
-        messageHandler.handle(session.getId(), message);
+        messageHandler.handle(session, message);
     }
 
     @Override

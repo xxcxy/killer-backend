@@ -81,4 +81,12 @@ public class RoomTest {
         eventBus.post(new FinishGameEvent());
         assertThat(rm.getPlayers().size(), is(0));
     }
+
+    @Test
+    public void testRemoveOfflinePlayer() {
+        EventBus eventBus = new EventBus();
+        Room rm = Utils.getRoomWithPlayers(eventBus);
+        rm.getPlayers().get(0).offline();
+        assertThat(rm.getPlayers().size(), is(0));
+    }
 }

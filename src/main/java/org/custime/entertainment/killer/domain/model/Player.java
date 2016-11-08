@@ -3,6 +3,7 @@ package org.custime.entertainment.killer.domain.model;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import org.custime.entertainment.killer.domain.event.FinishGameEvent;
+import org.custime.entertainment.killer.domain.event.LosePlayerEvent;
 import org.custime.entertainment.killer.domain.event.PlayerVoteEvent;
 import org.custime.entertainment.killer.domain.event.UpdatePlayerStateEvent;
 import org.custime.entertainment.killer.domain.service.PlayerService;
@@ -69,6 +70,7 @@ public class Player {
 
     public void offline() {
         offline = true;
+        eventBus.post(new LosePlayerEvent(name));
     }
 
     public boolean isOffline() {

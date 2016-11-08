@@ -1,15 +1,13 @@
 package org.custime.entertainment.killer.domain.repository;
 
-import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class AbstractRepository<T> {
-    private final Map<String, T> playerStore = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, T> playerStore = new ConcurrentHashMap<>();
 
     public boolean save(final String id, final T t) {
-        playerStore.put(id, t);
-        return true;
+        return playerStore.putIfAbsent(id, t) == null;
     }
 
     public Optional<T> getOne(final String id) {
