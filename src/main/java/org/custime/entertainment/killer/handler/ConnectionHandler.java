@@ -4,15 +4,27 @@ import org.custime.entertainment.killer.domain.factory.PlayerFactory;
 import org.custime.entertainment.killer.domain.model.Player;
 import org.custime.entertainment.killer.domain.repository.PlayerRepository;
 import org.custime.entertainment.killer.service.WebSocketMessageService;
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-public class WebSocketHandler extends TextWebSocketHandler {
+import javax.inject.Inject;
 
-    private final PlayerFactory playerFactory = new PlayerFactory();
-    private final PlayerRepository playerRepository = PlayerRepository.getInstance();
+@Component
+public class ConnectionHandler extends TextWebSocketHandler {
+
+    private final PlayerFactory playerFactory;
+    private final PlayerRepository playerRepository;
+    private final MessageHandler messageHandler;
+
+    @Inject
+    public ConnectionHandler(final MessageHandler messageHandler) {
+        this.playerFactory = new PlayerFactory();
+        this.playerRepository = PlayerRepository.getInstance();
+        this.messageHandler = messageHandler;
+    }
 
     @Override
     public void handleTextMessage(final WebSocketSession session, final TextMessage message) {

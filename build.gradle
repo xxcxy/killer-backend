@@ -20,10 +20,12 @@ repositories {
 ext {
     springBootVersion = '1.4.0.RELEASE'
     guavaVersion = '19.0'
+    injectVersion = '1'
 }
 
 dependencies {
     compile(
+            "javax.inject:javax.inject:$injectVersion",
             "com.google.guava:guava:$guavaVersion",
             "org.springframework.boot:spring-boot-starter-websocket:$springBootVersion",
     )
