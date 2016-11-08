@@ -37,6 +37,7 @@ public class MessageHandlerTest {
         session = mock(WebSocketSession.class);
         when(session.getId()).thenReturn("sessionId");
         playerRepository.remove("sessionId");
+        roomRepository.remove("roomName");
         messageHandler = new MessageHandler(playerRepository, roomFactory, roomRepository);
     }
 
@@ -89,7 +90,27 @@ public class MessageHandlerTest {
     @Test
     public void testAddRoom() {
         playerRepository.save("sessionId", mock(Player.class));
+        Room room = mock(Room.class);
+        roomRepository.save("roomName", room);
         messageHandler.handle(session, getMessage("addRoom", "roomName"));
+        verify(room).addPlayer(any());
+    }
+
+    @Test
+    public void testAddNotExistedRoom() throws IOException {
+        playerRepository.save("sessionId", mock(Player.class));
+        messageHandler.handle(session, getMessage("addRoom", "roomName"));
+        verify(session).sendMessage(any());
+    }
+
+    @Test
+    public void testAddStartedRoom() throws IOException {
+        playerRepository.save("sessionId", mock(Player.class));
+        Room room = mock(Room.class);
+        when(room.addPlayer(any())).thenReturn(false);
+        roomRepository.save("roomName", room);
+        messageHandler.handle(session, getMessage("addRoom", "roomName"));
+        verify(session).sendMessage(any());
     }
 
     @Test
