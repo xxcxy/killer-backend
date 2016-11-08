@@ -70,4 +70,15 @@ public class RoomTest {
         eventBus.post(new FinishGameEvent());
         assertThat(roomWithPlayers.addPlayer(Utils.getPlayer()), is(true));
     }
+
+    @Test
+    public void testRemoveOfflinePlayerAfterGameStopped() {
+        EventBus eventBus = new EventBus();
+        Room rm = Utils.getRoomWithPlayers(eventBus);
+        rm.startGame(ImmutableMap.of(VILLAGER, 1));
+        rm.getPlayers().forEach(player -> player.offline());
+        assertThat(rm.getPlayers().size(), is(1));
+        eventBus.post(new FinishGameEvent());
+        assertThat(rm.getPlayers().size(), is(0));
+    }
 }

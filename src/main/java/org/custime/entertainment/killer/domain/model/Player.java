@@ -12,6 +12,7 @@ public class Player {
 
     private String name;
     private boolean death;
+    private boolean offline;
     private EventBus eventBus;
     private Role role;
     private final PlayerService playerService;
@@ -19,6 +20,7 @@ public class Player {
     public Player(final PlayerService playerService) {
         this.playerService = playerService;
         this.death = false;
+        this.offline = false;
     }
 
     void setEventBus(final EventBus eventBus) {
@@ -63,5 +65,13 @@ public class Player {
 
     public boolean isDeath() {
         return death;
+    }
+
+    public void offline() {
+        offline = true;
+    }
+
+    public boolean isOffline() {
+        return offline;
     }
 }

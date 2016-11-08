@@ -28,7 +28,7 @@ public class ConnectionHandler extends TextWebSocketHandler {
 
     @Override
     public void handleTextMessage(final WebSocketSession session, final TextMessage message) {
-        System.out.println("session id:" + session.getId());
+        messageHandler.handle(session.getId(), message);
     }
 
     @Override
@@ -39,6 +39,7 @@ public class ConnectionHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionClosed(final WebSocketSession session, final CloseStatus status) throws Exception {
-        System.out.println("close session id:" + session.getId());
+        playerRepository.getOne(session.getId()).ifPresent(player -> player.offline());
+        playerRepository.remove(session.getId());
     }
 }

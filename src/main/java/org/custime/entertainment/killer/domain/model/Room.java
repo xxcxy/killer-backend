@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Room {
@@ -74,7 +75,12 @@ public class Room {
     @Subscribe
     private void listenGameFinish(final FinishGameEvent event) {
         eventBus.unregister(this.game);
+        clearOfflinePlayer();
         this.game = null;
+    }
+
+    private void clearOfflinePlayer() {
+        players = players.stream().filter(player -> !player.isOffline()).collect(Collectors.toList());
     }
 
     public boolean isGameStarted() {
