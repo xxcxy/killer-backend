@@ -3,7 +3,7 @@ package org.custime.entertainment.killer.domain.model;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import org.custime.entertainment.killer.domain.event.FinishGameEvent;
-import org.custime.entertainment.killer.domain.event.LosePlayerEvent;
+import org.custime.entertainment.killer.domain.event.LostPlayerEvent;
 import org.custime.entertainment.killer.domain.value.Role;
 
 import java.util.ArrayList;
@@ -81,8 +81,8 @@ public class Room {
     }
 
     @Subscribe
-    private void losePlayer(final LosePlayerEvent losePlayerEvent) {
-        players.stream().filter(player -> player.getName().equals(losePlayerEvent.getPlayerName()))
+    private void losePlayer(final LostPlayerEvent lostPlayerEvent) {
+        players.stream().filter(player -> player.getName().equals(lostPlayerEvent.getPlayerName()))
                 .findFirst()
                 .ifPresent(player -> removePlayer(player));
     }

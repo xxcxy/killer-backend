@@ -1,10 +1,10 @@
 package org.custime.entertainment.killer.domain.event;
 
-public class LosePlayerEvent {
+public class LostPlayerEvent {
 
     private final String playerName;
 
-    public LosePlayerEvent(final String playerName) {
+    public LostPlayerEvent(final String playerName) {
         this.playerName = playerName;
     }
 
