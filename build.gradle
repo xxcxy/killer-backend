@@ -34,6 +34,8 @@ dependencies {
     )
 }
 
+mainClassName = "org.custime.entertainment.killer.Application"
+
 checkstyle {
     configFile = file("$project.projectDir/config/checkstyle/checkstyle.xml")
     configProperties = ['': 8]

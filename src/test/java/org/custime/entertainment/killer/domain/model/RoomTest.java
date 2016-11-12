@@ -58,6 +58,13 @@ public class RoomTest {
     }
 
     @Test
+    public void testStartFailWhenGameHasStarted() {
+        assertThat(roomWithPlayers.startGame(ImmutableMap.of(VILLAGER, 1)), is(true));
+        assertThat(roomWithPlayers.isGameStarted(), is(true));
+        assertThat(roomWithPlayers.startGame(ImmutableMap.of(VILLAGER, 1)), is(false));
+    }
+
+    @Test
     public void testStartFailWhenRoleCountDiffPlayerCount() {
         assertThat(roomWithPlayers.startGame(ImmutableMap.of(VILLAGER, 2)), is(false));
         assertThat(roomWithPlayers.isGameStarted(), is(false));

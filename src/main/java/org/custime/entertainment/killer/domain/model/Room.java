@@ -25,7 +25,7 @@ public class Room {
     }
 
     public synchronized boolean startGame(final Map<Role, Integer> roleCount) {
-        if (!allocate(players, roleCount)) {
+        if (isGameStarted() || !allocate(players, roleCount)) {
             return false;
         }
         game = new Game(players, eventBus);
