@@ -1,5 +1,8 @@
 package org.custime.entertainment.killer.domain.event;
 
+/**
+  Finish Vote Event
+ */
 public class FinishVoteEvent {
 
     private final String votePlayerName;
